@@ -25,9 +25,24 @@ def func1():
         print()
 
 
-print()
-if __name__ == '__main__':
+def test1():
     t1 = threading.Thread(target=func)
     t2 = threading.Thread(target=func1)
     t1.start()
     t2.start()
+
+
+#  使用多线程在终端打印hello world+线程名字
+class PrintHello(threading.Thread):
+    def run(self):
+        print("Hello,World" + self.name)
+
+
+def test2():
+    print_task = PrintHello()
+    # 启动线程
+    print_task.start()
+
+
+if __name__ == '__main__':
+    test2()
