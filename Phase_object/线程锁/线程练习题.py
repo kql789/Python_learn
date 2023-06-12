@@ -39,6 +39,7 @@ class PrintHello(threading.Thread):
 
 
 def test2():
+    # 实例化线程类
     print_task = PrintHello()
     # 启动线程
     print_task.start()
