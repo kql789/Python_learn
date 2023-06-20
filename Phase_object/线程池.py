@@ -4,13 +4,12 @@ import threading
 import time
 import queue
 import contextlib
+from multiprocessing.pool import ThreadPool
 
 '''
 在使用多线程处理任务时也不是线程越多越好。因为在切换线程的时候，需要切换上下文环境，线程很多的时候，依然会造成CPU的大量开销。
 为解决这个问题，线程池的概念被提出来了。
-
 预先创建好一个数量较为优化的线程组，在需要的时候立刻能够使用，就形成了线程池。
-在Python中，没有内置的较好的线程池模块，需要自己实现或使用第三方模块。
 '''
 
 
@@ -204,17 +203,60 @@ class ThreadPool:
             state_list.remove(worker_thread)
 
 
+'''
+池的概念在于，预先创建好一定数量的线程，可以不需要多次重复创建，避免频繁的生产和释放线程资源导致的系统资源浪费
+'''
+"""
+from multiprocessing.pool import ThreadPool
+tp = ThreadPool(3) # 创建一定个数的进程池
+p.apply(func, args) # 阻塞方式，调用函数及传入参数，下个线程阻塞直到上个线程结束
+p.apply_async(func, args) # 非阻塞方式，调用函数及传入参数，并发完成任务
+p.close() # 关闭线程池不在接收新的任务进入
+p.join() # 父进程等待全部子线程结束，必须在close函数之后
+p.terminat() # 直接关闭线程池并终止所有线程任务
+"""
+from multiprocessing.pool import ThreadPool
+from threading import current_thread, Lock
+import time
+
+
+def work(obj, l=None):
+    with l:
+        obj[0] += 1
+        print('当前线程是:', current_thread().name, ':', obj)
+        time.sleep(0.5)
+    return obj
+
+
+def main():
+    l = Lock()
+    mylist = [1]
+    p = ThreadPool(10)
+    # print(help(ThreadPool))
+    res = []
+    for var in range(10):
+        # res.append(p.apply(func=work,args=(mylist,l)))
+        res.append(p.apply_async(func=work, args=(mylist, l)))
+    p.close()  # 关闭进程池
+    p.join()
+    # print(res) #apply
+    for var in res:  # apply_async
+        print(var.get(), end=' ')
+    print('\nover')
+
+
 # 调用方式
 if __name__ == '__main__':
-    # 创建一个最多包含5个线程的线程池
-    pool = ThreadPool(5)
-    # 创建100个任务，让线程池进行处理
-    for i in range(100):
-        pool.put(action, (i,), callback)
-    # 等待一定时间，让线程执行任务
-    time.sleep(3)
-    print("-" * 50)
-    print("任务停止之前线程池中有%s个线程，空闲的线程有%s个!"
-          % (len(pool.generate_list), len(pool.free_list)))
-    pool.close()
-    print("任务执行完毕，正常退出")
+    # # 创建一个最多包含5个线程的线程池
+    # pool = ThreadPool(5)
+    # # 创建100个任务，让线程池进行处理
+    # for i in range(100):
+    #     pool.put(action, (i,), callback)
+    # # 等待一定时间，让线程执行任务
+    # time.sleep(3)
+    # print("-" * 50)
+    # print("任务停止之前线程池中有%s个线程，空闲的线程有%s个!"
+    #       % (len(pool.generate_list), len(pool.free_list)))
+    # pool.close()
+    # print("任务执行完毕，正常退出")
+    main()
