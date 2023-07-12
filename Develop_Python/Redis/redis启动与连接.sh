@@ -1,4 +1,5 @@
 # redis服务启动两种方式启动和关闭
+
 # 命令行启动，关闭终端，服务立即关闭
 redis-server /usr/local/etc/redis.conf
 # brew后台启动
@@ -23,12 +24,11 @@ redis-cli
 1. 在usr/local/ect/redis.conf中直接修改配置文件
 2. 使用config set 命令进行修改
 
-# redis数据类型：
-字符串、哈希、列表、集合、有序集合
+# redis数据类型： 字符串、哈希、列表、集合、有序集合
 
 # redis常用命令
-# 连接本地服务
-redis-cli  #有时候会中文乱码 则使用redis-cli --raw
+# 连接本地服务,有时候会中文乱码 则使用redis-cli --raw
+redis-cli
 
 # 远程服务链接指令
 redis-cli -h host -p port -a password
