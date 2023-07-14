@@ -37,3 +37,57 @@ class LinkList():
         while p is not None:
             print(p.val)
             p = p.next  # 向后移动一个
+
+    # 判断链表为空
+    def is_empty(self):
+        if self.head.next is None:
+            return True
+        else:
+            return False
+
+    # 清空链表
+    def clear(self):
+        self.head.next = None
+
+    # 尾部插入
+    def append(self, val):
+        p = self.head
+        while p.next is not None:
+            p = p.next
+        p.next = Node(val)
+
+    # 头部插入
+    def head_insert(self, val):
+        node = Node(val)
+        node.next = self.head.next
+        self.head.next = node
+
+    # 插入指定位置
+    def insert(self, index, val):
+        p = self.head
+        for i in range(index):
+            if p.next is None:
+                break
+            p = p.next
+        node = Node(val)
+        node.next = p.next
+        p.next = node
+
+    # 删除节点
+    def delete(self, x):
+        p = self.head
+        while p.next and p.next.val != x:
+            p = p.next
+        if p.next is None:
+            raise ValueError(" x is not in linklist")
+        else:
+            p.next = p.next.next
+
+    # 获取某个索引的值,传入节点位置，获取节点值
+    def get_index(self, index):
+        p = self.head.next
+        for i in range(index):
+            if p.next is None:
+                raise IndexError("index out of range")
+            p = p.next
+        return p.val
