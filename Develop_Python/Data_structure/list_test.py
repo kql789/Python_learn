@@ -26,7 +26,7 @@ tm = time.time()
 # l.remove(200)  # 按照值进行删除 0.0058
 # link.delete(850218)  # 按照值进行删除 0.085
 # print(l[10])  # 按照索引获取值,1.88
-print(link.get_index(10))  # 按照索引获取值，2.69*10-5
+# print(link.get_index(10))  # 按照索引获取值，2.69*10-5
 # 计时结束
 print("time:", time.time() - tm)
 
