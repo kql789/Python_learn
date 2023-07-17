@@ -16,18 +16,18 @@ while True:
         elif i == '+':
             y = st.pop()
             x = st.pop()
-            st.push(y + x)
+            st.push(x + y)
         elif i == '-':
             y = st.pop()
             x = st.pop()
-            st.push(y - x)
+            st.push(x - y)
         elif i == '*':
             y = st.pop()
             x = st.pop()
-            st.push(y * x)
+            st.push(x * y)
         elif i == '/':
             y = st.pop()
             x = st.pop()
-            st.push(y / x)
+            st.push(x / y)
         elif i == 'p':
             print(st.top())
