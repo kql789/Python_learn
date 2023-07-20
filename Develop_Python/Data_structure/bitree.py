@@ -5,12 +5,13 @@
 链式二叉树遍历
 思路分析：
 1. 使用链式存储，一个Node表示一个树的节点
-2. 节点考虑使用两个属性变量分别表示左来连接和右连接
+2. 节点考虑使用两个属性变量分别表示左连接和右连接
 
 """
+from squeue import *
 
 
-# 创建节点类
+# 二叉树节点
 class Node:
     def __init__(self, val, left=None, right=None):
         self.val = val
@@ -48,6 +49,22 @@ class Bitree:
         self.postorder(node.right)
         print(node.val, end=' ')
 
+    # 层次节点
+    def levelOrder(self, node):
+        """
+        让初始节点先入队，谁出队遍历谁，并且让它的左右孩子分别入队，
+        直到队列为空
+        """
+        sq = SQueue()
+        sq.enqueue(node)  # 初始节点入队
+        while not sq.is_empty():
+            node = sq.dequeue()
+            print(node.val,end=' ')
+            if node.left:
+                sq.enqueue(node.left)
+            if node.right:
+                sq.enqueue(node.right)
+
 
 if __name__ == '__main__':
     # 后序遍历，先遍历叶子节点
@@ -68,3 +85,5 @@ if __name__ == '__main__':
     bt.inorder(bt.root)
     print()
     bt.postorder(bt.root)
+    print()
+    bt.levelOrder(bt.root)
