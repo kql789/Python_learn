@@ -10,6 +10,7 @@
 """
 
 
+# 创建节点类
 class Node:
     def __init__(self, val, left=None, right=None):
         self.val = val
@@ -19,5 +20,51 @@ class Node:
 
 # 二叉树遍历类
 class Bitree:
-    pass
+    def __init__(self, root=None):
+        self.root = root
 
+    # 先序遍历
+    def preOrder(self, node):
+        # 终止条件
+        if node is None:
+            return
+        print(node.val, end=' ')
+        self.preOrder(node.left)
+        self.preOrder(node.right)
+
+    # 中序遍历
+    def inorder(self, node):
+        if node is None:
+            return
+        self.inorder(node.left)
+        print(node.val, end=' ')
+        self.inorder(node.right)
+
+    # 后序遍历
+    def postorder(self, node):
+        if node is None:
+            return
+        self.postorder(node.left)
+        self.postorder(node.right)
+        print(node.val, end=' ')
+
+
+if __name__ == '__main__':
+    # 后序遍历，先遍历叶子节点
+    # 后序遍历: B,F,G,D,I,H,E,C,A
+    b = Node('B')
+    f = Node('F')
+    g = Node('G')
+    d = Node('D', f, g)
+    i = Node('I')
+    h = Node('H')
+    e = Node('E', i, h)
+    c = Node('C', d, e)
+    a = Node('A', b, c)
+    # 将a作为遍历的起始位置
+    bt = Bitree(a)
+    bt.preOrder(bt.root)
+    print()
+    bt.inorder(bt.root)
+    print()
+    bt.postorder(bt.root)
