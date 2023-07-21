@@ -15,6 +15,9 @@ def buble(list_):
             if list_[j] > list_[j + 1]:
                 list_[j], list_[j + 1] = list_[j + 1], list_[j]
 
+# 快速排序
+def quick():
+    pass
 
 l = [4, 7, 8, 1, 3, 5, 6, 2]
 
