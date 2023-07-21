@@ -12,5 +12,6 @@ def recursion(num):
         return 1
     return num * recursion(num - 1)
 
+
 if __name__ == '__main__':
     print(recursion(10))
