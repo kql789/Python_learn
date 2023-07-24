@@ -13,3 +13,21 @@ git tag [tag_name] [commit_id] -m [message]
 #说明：commit_id可以不写则默认标签表示最新的commit_id位置，message也可以不写，但是最好添加。
 git tag #查看标签列表
 git show tag_name #查看详细的标签
+git tag -d tag_name #删除标签
+
+
+# 保护工作区
+#1. 保护工作区内容,将工作区未提交的修改封存，让工作区回到修改前的状态。
+git stash save [message]
+#查看封存的工作区，说明：最新保存的工作区在最上面
+git stash list
+#应用到某个工作区
+git stash apply [stash@{n}]
+#删除某一个工作区
+git stash drop [stash@{n}]
+#删除所有保存的工作区
+git stash clear
+
+
+
+
