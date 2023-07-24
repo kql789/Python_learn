@@ -47,3 +47,4 @@ if __name__ == "__main__":
     ls.push(30)
     ls.push(10)
     print(ls.pop())
+
