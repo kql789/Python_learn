@@ -6,3 +6,4 @@
 *.iml
 #忽略mac的自己文件
 .DS_Store
+*.xml
