@@ -55,3 +55,35 @@ git merge [branch_name] #先切换的父分支上，之后在合并该父分支�
 
 #删除分支
 git branch -d [branch_name]
+#查看所有分支
+git branch -a
+
+## 远程仓库
+
+#删除远程主机
+git remote rm [origin_name]
+
+#用于本地仓库比远程仓库版本旧时强行推送本地版本
+git push --force origin
+
+#推送本地标签到远程
+git push origin [tag]
+#推送本地所有标签到远程
+git push origin --tags
+
+#删除远程仓库标签
+git push origin --delete tag [tagname]
+
+#推送本地分支到远程仓库
+git push -u origin [local_branch_name]
+#删除远程仓库分支
+git push origin :[yuancheng_branch_name]
+git push origin --delete [yuancheng_branch_name]
+
+#从远程获取代码
+git pull
+#将远程分支master拉去到本地，作为tmp分支， git fetch origin master:tmp
+#区别：
+#pull将远程内容直接拉取到本地，并和对应的分支内容进行合并
+#fetch将远程分支内容拉去到本地，但是不会和本地对应分值合并，可以自己判断后再使用merge合并
+
