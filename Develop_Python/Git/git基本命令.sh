@@ -33,8 +33,10 @@ git commit
 git merge master (master 为待合并的分支)
 # 将分支复制合并到其他分支上
 git rebase master
+#从暂存区撤回
+git rm --cached <文件>
 # 查看提交记录的哈希值
-git log
+git log --pretty=oneline #只显示一行
 #查看分支
 git branch
 #切换到已有分支
@@ -75,6 +77,16 @@ git reset --hard HEAD~100
 git reset --hard id
 # 查看你的每一条命令
 git reflog
+
+#比较工作区文件和仓库文件差异
+git diff [file]
+#将暂存区或某个commit 点文件恢复到工作区
+git checkout -- [file]
+
+#移动或删除文件
+git mv [flle] [path]
+git rm [files]
+#注意这两个操作会修改工作区内容，同时将操作记录到暂存区
 
 # 为什么git比其他版本控制系统设计的优秀？
 # 因为Git跟踪并管理的是修改，而非文件。
