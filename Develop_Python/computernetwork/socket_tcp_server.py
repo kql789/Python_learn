@@ -9,8 +9,10 @@ import socket
 # 创建套接字
 sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+# 设置端口可以立即重用，绑定地址之前
+sockfd.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 # 绑定地址
-sockfd.bind(('127.0.0.1', 8888))
+sockfd.bind(('127.0.0.1', 9999))
 
 # 设置监听
 sockfd.listen(5)
