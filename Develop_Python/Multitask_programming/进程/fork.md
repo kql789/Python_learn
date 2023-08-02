@@ -170,4 +170,16 @@ pid = os.fork()
 
 - 使用multiprocessing 创建进程同样时子进程复制父进程空间代码段，父子进程运行互不影响。
 
-- 子进程只运行target绑定的函数部分，其余内容均是父进程执行内容。
+- 子进程只运行target绑定的函数部分，其余内容均是父进程执行内容。  
+- multiprocessing中父进程往往只用来创建子进程回收子进程，具体事件由子进程完成。  
+- multiprocessing创建的子进程中无法使用标准输入。
+
+## 进程的对象属性
+      
+      p.name 进程名称
+      p.pid 对应子进程PID
+      p.is_alive() 是否在生命周期内
+      p.daemon=True 设置父进程的退出关系
+      如果为True则子进程会随父进程退出而结束
+      要求必须在start()前设置
+      如果daemon设置成True通常就不会使用join()
