@@ -180,6 +180,6 @@ pid = os.fork()
       p.pid 对应子进程PID
       p.is_alive() 是否在生命周期内
       p.daemon=True 设置父进程的退出关系
-      如果为True则子进程会随父进程退出而结束
-      要求必须在start()前设置
-      如果daemon设置成True通常就不会使用join()
+        如果为True则子进程会随父进程退出而结束
+        要求必须在start()前设置
+        如果daemon设置成True通常就不会使用join()
