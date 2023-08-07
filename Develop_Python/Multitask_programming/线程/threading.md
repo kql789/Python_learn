@@ -43,3 +43,17 @@
             t.isDaemon() 查看daemon属性值
                 daemon为True时，主线程退出，分支线程也退出。要在start前设置，通常
                 不和join一起使用。
+
+## 自定义线程类
+
+1. 创建步骤
+
+- 继承Thread类
+- 重写__init__方法添加自己的属性，使用super加载父类属性
+- 重写run方法
+
+2. 使用方法
+
+- 实例化对象
+- 调用start自动执行run方法
+- 调用join回收线程
