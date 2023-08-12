@@ -11,7 +11,7 @@ filename = "./photo/io操作.jpg"
 
 size = os.path.getsize(filename)
 
-# 父进程创建fr   两个子进程使用这个fr会互相影响
+# 父进程创建fr    两个子进程使用这个fr会互相影响
 # fr = open(filename, 'rb')
 
 
