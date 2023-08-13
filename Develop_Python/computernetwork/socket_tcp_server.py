@@ -1,44 +1,34 @@
-# @Author : Kql
-# @Time : 2023/7/25 18:29
-"""
-socket_tcp.py tcp套接字服务端流程
-注意：功能性代码，注重流程和函数使用
-"""
-import socket
+# 多线程通信
+from multiprocessing import Process
 
-# 创建套接字
-sockfd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# 设置端口可以立即重用，绑定地址之前
-sockfd.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-# 绑定地址
-sockfd.bind(('127.0.0.1', 9999))
+# 写一个冒泡排序的函数
 
-# 设置监听
-sockfd.listen(5)
 
-while True:
-    # 阻塞等待处理连接
-    print("Waitting for connetc")
-    try:
-        connfd, addr = sockfd.accept()
-        print("Connet from ", addr)  # 打印链接的客户端地址
-    except KeyboardInterrupt:
-        print("Server exit")
-        break
-    except Exception as e:
-        print(e)
-        continue
-    while True:
-        # 收发消息
-        data = connfd.recv(1024)
-        if not data:
-            break
-        print("收到：", data.decode())
-        # 发送字节串
-        n = connfd.send(b'Thanks...')
-        print("发送%d字节" % n)
+def bubble_sort(lst):
+    # 循环执行比较操作
+    for i in range(len(lst)):
+        # 循环执行比较操作
+        for j in range(len(lst) - 1 - i):
+            # 如果当前元素大于前一个元素
+            if lst[j] > lst[j + 1]:
+                # 将当前元素替换为前一个元素
+                lst[j], lst[j + 1] = lst[j + 1], lst[j]
 
-    connfd.close()
-# 关闭套接字
-sockfd.close()
+
+# 生成一个插入排序函数
+def insert_sort(lst):
+    # 循环执行比较操作
+    for i in range(1, len(lst)):
+        # 循环执行比较操作
+        for j in range(i, 0, -1):
+            # 如果当前元素小于前一个元素
+            if lst[j] < lst[j - 1]:
+                # 将当前元素替换为前一个元素
+                lst[j], lst[j - 1] = lst[j - 1], lst[j]
+
+
+lits_i = [1, 7, 3, 9, 2, 6]
+# 将lits_i排序
+insert_sort(lits_i)
+print(lits_i)
