@@ -41,7 +41,14 @@ IO分类：阻塞IO，非阻塞IO，IO多路复用，异步IO等。
 
 **代码实现 select_server.py**
 
-![select](./photo/select.png)
+![select](./photo/select.png)  
+
+注意：  
+
+            wlist中如果存在IO事件，则select立即返回给ws处理IO
+            处理IO过程中不要出现死循环占有服务端情况
+            IO多路复用消耗资源较少，效率较高。
+
 
 
 
