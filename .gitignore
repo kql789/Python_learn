@@ -12,4 +12,5 @@ misc.xml
 #../.idea/python_-advance_-user.iml
 #../.idea/misc.xml
 #忽略.idea 文件夹下所有文件
-.idea/*
+#.idea/*
+/.idea/*
