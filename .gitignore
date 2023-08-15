@@ -13,4 +13,4 @@ misc.xml
 #../.idea/misc.xml
 #忽略.idea 文件夹下所有文件
 #.idea/*
-/.idea/*
+.idea/*
