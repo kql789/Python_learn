@@ -46,7 +46,7 @@
          q.put(data,[block,timeout])
          功能：向队列存入消息
          参数：data,要存入的内容
-         block 设置是否则色 False 为非阻塞
+         block 设置是否阻塞 False 为非阻塞
          timeout 超时检测
 
          q.get([block,timeout])
