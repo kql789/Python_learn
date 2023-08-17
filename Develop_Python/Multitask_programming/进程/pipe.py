@@ -3,11 +3,11 @@
 
 """
 管道通信
-注意：1. multiprocessing 中管道通信只能用于有沁园关系进程中
+注意：1. multiprocessing 中管道通信只能用于有亲缘关系进程中
      2. 管道对象在父进程中创建，子进程通过父进程获取。
 """
 
-from multiprocessing import Process, Pipe
+from multiprocessing import Process, Pipe, freeze_support
 
 # 创建管道 单向管道 fd1->recv,fd2->send
 fd1, fd2 = Pipe()
@@ -29,6 +29,7 @@ def app2():
 
 
 if __name__ == '__main__':
+    freeze_support()
     p1 = Process(target=app1)
     p2 = Process(target=app2)
     p1.start()
