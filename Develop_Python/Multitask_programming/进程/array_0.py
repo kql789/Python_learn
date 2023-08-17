@@ -10,7 +10,7 @@ from multiprocessing import Process, Array
 shm = Array('i', [1, 2, 3, 45, 7])
 
 
-# shm = Array('i', 5)  # 初始开辟5个整型空间
+# shm = Array('i', 5)  # 初始开辟5个整型空间 [0,0,0,0,0]
 # shm = Array('c', b'hello')  # 字节串
 
 
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     p = Process(target=fun)
     p.start()
     p.join()
-# for i in shm:
-#     print(i)
+    for i in shm:
+        print(i)
 
 print("----", shm[1])
