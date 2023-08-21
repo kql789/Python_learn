@@ -116,7 +116,7 @@ poll_server步骤
 
 - epoll效率比select poll要高
 - epoll监控IO数量比select要多
-- epoll的出发方式比poll要多（EPOLLET边缘触发）
+- epoll的触发方式比poll要多（EPOLLET边缘触发）
 
 
 
