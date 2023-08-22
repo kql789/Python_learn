@@ -13,12 +13,13 @@ import random
 money = Value('i', 5000)
 
 
+# 线程函数
 def man():
     for i in range(30):
         time.sleep(0.2)
         money.value += random.randint(1, 1000)
 
-
+#   线程函数
 def girl():
     for i in range(30):
         time.sleep(0.15)
