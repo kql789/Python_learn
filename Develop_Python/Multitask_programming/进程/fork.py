@@ -6,7 +6,7 @@ from time import sleep
 a = 1
 # 创建子进程
 pid = os.fork()
-
+# 返回小于0的值表示创建子进程失败
 if pid < 0:
     print("Error")
 # 子进程执行部分
