@@ -136,25 +136,22 @@ base64(header) + '.' + base64(payload) + '.' + base64(sign)
 | encode(payload,key,algorithm) | payload:jwt三大组成中的payload,<br/>需要组成字典，按需添加公有声明和私有声明<br/>key:自定义的加密key，参数类型：str                                                                                                                                                        | token串，返回类型：bytes |
 | decode(payload,key,algorithm) | token:token串，参数类型：bytes/str，<br/>key:自定义的加密key，需要跟encode中的key保持一致<br/>参数类型：str <br/>algorithm：同encode<br/>issuer：发布者，<br/>若encode payload中添加iss字段，则可针对该字段校验，参数类型：str<br/>audience：签发的受众群体，若encode payload中添加aud字段，则可针对该字段校验，参数类型：str | payload返回类型：dict  |
 
-注意：若encode的时候payload中添加了exp字段；则exp字段得值需为当前时间戳+此token的有效期时间，例如希望token300秒后过期{'exp':payload = {'username': 'kql', 'exp': time.time() + 15}
+**注意**：若encode的时候payload中添加了exp字段；则exp字段得值需为当前时间戳+此token的有效期时间，  
+例如希望token300秒后过期 {'exp': time.time() + 300}  
 
-# 生成token
-a = jwt.encode(payload, '123456', algorithm='HS256')
-print(a)
 
-# 解码token
-b = jwt.decode(a, '123456', algorithms='HS256')
-print(b)payload = {'username': 'kql', 'exp': time.time() + 15}
 
-# 生成token
-a = jwt.encode(payload, '123456', algorithm='HS256')
-print(a)
-
-# 解码token
-b = jwt.decode(a, '123456', algorithms='HS256')
-print(b)
-time.time()+300}  
-在执行decode时，若检查exp字段，且token过期，则抛出jwt.ExpiredSignatureError
+        
+        payload = {'username': 'kql', 'exp': time.time() + 15}
+        
+        # 生成token
+        a = jwt.encode(payload, '123456', algorithm='HS256')
+        print(a)
+        
+        # 解码token
+        b = jwt.decode(a, '123456', algorithms='HS256')
+        print(b)
+        在执行decode时，若检查exp字段，且token过期，则抛出jwt.ExpiredSignatureError
 
 
 
