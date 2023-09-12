@@ -109,6 +109,34 @@ mset wang:email wangwei@126.com kql:email kql@126.com
 - 不宜过短，可读性较差
 - 一个字符串类型的值最多能存储512m内容。
 
+# 列表
+## 特点
+    - 元素是字符串类型
+    - 列表头尾增删快
+    - 元素可重复
+    - 最多可包含2^32-1个元素
+    - 索引同python列表
+
+## 常用命令
+
+```
+#增
+#从头部压入元素
+lpush key value1 value2 value3
+#从尾部压入元素
+rpush key value1 value2 value3
+#从列表src尾部弹出一个元素，压入到列表dst的头部
+rpoplpush src dst
+# 在列表指定元素后/前插入元素
+linsert key before|after value newvalue
+#查
+#查看列表元素
+lrange key start stop
+# 查看列表长度
+llen key
+
+```
+
 
 
 
