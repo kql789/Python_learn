@@ -110,7 +110,9 @@ mset wang:email wangwei@126.com kql:email kql@126.com
 - 一个字符串类型的值最多能存储512m内容。
 
 # 列表
+
 ## 特点
+
     - 元素是字符串类型
     - 列表头尾增删快
     - 元素可重复
@@ -135,7 +137,97 @@ lrange key start stop
 # 查看列表长度
 llen key
 
+#删
+#从列表头部弹出一个元素
+lpop key
+#从列表尾部弹出一个元素
+rpop key
+#列表头部，阻塞弹出，列表为空时阻塞
+brpop key timeout
+#列表尾部，阻塞弹出，列表为空时阻塞
+brpop key timeout
+
+关于blpop和brpop说明：
+1. 如果弹出的列表为空或不存在，就会阻塞
+2. 超时时间设置为0，就是永久阻塞，直到有数据可以弹出
+3. 如果多个客户端阻塞在同一个列表上，使用first in first service原则，即先到先得服务。
+
+#删除指定元素
+lrem key count value
+count>0 表示从头部开始向表尾搜索，移除与value相等的元素，数量为count。
+count<0 表示从尾部开始向头部搜索，移除与value相等的元素，数量为count。
+count=0 移除表中所有value相等的值。
+
+#保留指定范围内的元素
+ltrim key start stop
+应用场景：保留微博评论最后500条
+ltrim weibo:comment 0 499
+
+#改
+lset key index newvalue
 ```
+
+# Redis与Python交互
+
+## 安装
+
+```shell
+# ubuntu
+sudo pip3 install redis
+
+windows
+1. python -m pip install redis
+2. pip install redis
+```
+
+## 使用流程
+
+```python
+import redis
+
+r = redis.Redis(host='127.0.0.1', port=6379, db=0, password='123456')
+```
+
+通用命令代码——> redis_test
+
+# 位图操作
+
+## 定义：
+
+1. 位图不是真正的数据类型，它是定义在字符串类型中
+2. 一个字符串类型的值最多能存储512m字节的内容，位上限：2^32
+
+   1MB = 1024KB
+   1KB = 1024B
+   1B=8bit
+
+## 强势点
+
+可以实时的进行统计，机器节省空间。官方模拟一亿二千八百万用户的模拟环境中，使用macbookpro，典型统计如“日用户数”的时间消耗小于50ms，占用内存16MB
+
+```shell
+#设置某一位上的值,(offset是偏移量，从0开始)
+setbit key offset value
+
+
+#获取某一位上的值
+getbit key offset
+
+#统计键所对应的值有多少个1
+bitcount key
+```
+
+## 应用场景
+
+1. 用户签到
+2. 统计用户活跃度
+3. 统计用户活跃天数
+4. 统计用户活跃小时数
+5. 统计用户活跃分钟数
+6. 网站用户的上线次数统计
+
+
+
 
 
 
