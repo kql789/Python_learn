@@ -213,8 +213,8 @@ setbit key offset value
 #获取某一位上的值
 getbit key offset
 
-#统计键所对应的值有多少个1
-bitcount key
+#统计键所对应的值有多少个1,start和end都是bytes
+bitcount key [start end]
 ```
 
 ## 应用场景
@@ -226,9 +226,51 @@ bitcount key
 5. 统计用户活跃分钟数
 6. 网站用户的上线次数统计
 
+# 哈希类型
 
+## 定义：
 
+1. 由field和关联的value组成的键值对
+2. field和value是字符串类型
+3. 一个hash中最多包含2^32个键值对
 
+## 优点
 
+1. 节约内存空间
+2. 每创建一个键，他都会为这个键存储一些附加的管理信息（比如这个键的类型，这个键最后一次被访问的时间等）
+3. 键越多，redis数据库在存储附件管理信息方面耗费内存越多，花在管理数据库键上的CPU也会越多。
 
+## 缺点
+
+1. 使用二进制位操作命令：SETBIT,GETBIT,BITCOUNT等，如果想使用这些操作，只能用字符串键。
+2. 使用过期键功能：键过期功能只能对键进行过期操作，而不能对散列的字段进行过期操作。
+
+## 基本命令操作
+```shell
+#1. 设置一个字段
+hset key field value
+hsetnx key field value
+# 2. 设置多个字段
+hmset key field value field value
+# 3. 返回字段个数
+hlen key
+# 4. 判断字段是否存在
+hexists key field
+# 5. 返回字段值
+hget key field
+# 6. 返回多个字段值
+hmget key field field
+# 7 返回所有的键值对
+hgetall key
+# 8. 返回所有字段名
+hkeys key
+# 9. 返回所有值
+hvals key
+# 10. 删除指定字段
+hdel key field
+# 11. 在字段对应值上进行整数增量运算
+hincrby key filed increment
+# 12 在字段对应值上进行浮点数增量运算
+hincrbyfloat key field increment
+```
 
