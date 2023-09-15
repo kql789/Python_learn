@@ -273,4 +273,26 @@ hincrby key filed increment
 # 12 在字段对应值上进行浮点数增量运算
 hincrbyfloat key field increment
 ```
+## 应用场景
+```shell
 
+微博好友关注
+1. 用户id为key，field为好友id，value为关注时间
+key      field      value
+user:10  user:606   20230101
+
+2. 用户维度统计
+统计数：关注数、粉丝数、喜欢商品数、发帖数
+用户为key 不同维度field，value为统计数
+比如关注了5人
+hset user:1000 fans 5
+hincrby user:1000 fans 1
+```
+# redis+mysql联合使用
+## 原理
+```shell
+用户要查询个人信息
+1. 到redis缓存中查询
+2. redis中查不到，到mysql查询，并缓存到redis
+3. 再次查询个人信息
+```
