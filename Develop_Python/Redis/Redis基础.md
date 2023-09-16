@@ -1,8 +1,4 @@
-# Redis
-# 目录  
-
-[TOC]
-
+# 一、Redis基础
 ## 特点及优点
 
 ![redis](./photo/redis_te.png)
@@ -53,7 +49,7 @@ flushdb
 flushll
 ```
 
-# 字符串类型
+# 二、字符串类型
 
 - 特点
     - 1.字符串、数字、都会转为字符串来存储
@@ -112,7 +108,7 @@ mset wang:email wangwei@126.com kql:email kql@126.com
 - 不宜过短，可读性较差
 - 一个字符串类型的值最多能存储512m内容。
 
-# 列表
+# 三、列表数据类型
 
 ## 特点
 
@@ -170,7 +166,7 @@ ltrim weibo:comment 0 499
 lset key index newvalue
 ```
 
-# Redis与Python交互
+# 四、Redis与Python交互
 
 ## 安装
 
@@ -193,7 +189,7 @@ r = redis.Redis(host='127.0.0.1', port=6379, db=0, password='123456')
 
 通用命令代码——> redis_test
 
-# 位图操作
+# 五、位图操作
 
 ## 定义：
 
@@ -229,7 +225,7 @@ bitcount key [start end]
 5. 统计用户活跃分钟数
 6. 网站用户的上线次数统计
 
-# 哈希类型
+# 六、哈希数据类型
 
 ## 定义：
 
@@ -295,7 +291,7 @@ hset user:1000 fans 5
 hincrby user:1000 fans 1
 ```
 
-# redis+mysql联合使用
+# 七、redis+mysql联合使用
 
 ## 原理
 
@@ -306,7 +302,7 @@ hincrby user:1000 fans 1
 3. 再次查询个人信息
 ```
 
-# 集合数据类型
+# 八、集合数据类型
 
 ## 特点
 
@@ -346,7 +342,7 @@ sinterstore destination key1 key2
 sunionstore destination key1 key2
 ```
 
-# 有序集合
+# 九、有序集合数据类型
 
 ## 特点
 
@@ -402,7 +398,7 @@ zunionstore salary3 2 salary salary2 weights 1 0.5 aggregate max
 zinterstore destination numkeys key1 key2 weights weight aggregate sum(默认)|min|max
 ```
 
-# 总结
+# 十、总结
 
 ## 五大数据类型及应用场景
 
