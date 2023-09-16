@@ -246,6 +246,7 @@ bitcount key [start end]
 2. 使用过期键功能：键过期功能只能对键进行过期操作，而不能对散列的字段进行过期操作。
 
 ## 基本命令操作
+
 ```shell
 #1. 设置一个字段
 hset key field value
@@ -273,7 +274,9 @@ hincrby key filed increment
 # 12 在字段对应值上进行浮点数增量运算
 hincrbyfloat key field increment
 ```
+
 ## 应用场景
+
 ```shell
 
 微博好友关注
@@ -288,11 +291,123 @@ user:10  user:606   20230101
 hset user:1000 fans 5
 hincrby user:1000 fans 1
 ```
+
 # redis+mysql联合使用
+
 ## 原理
+
 ```shell
 用户要查询个人信息
 1. 到redis缓存中查询
 2. redis中查不到，到mysql查询，并缓存到redis
 3. 再次查询个人信息
 ```
+
+# 集合数据类型
+
+## 特点
+
+```shell
+1. 无序、去重
+2. 元素是字符串类型
+3. 最多包含2^32-1个元素
+```
+
+## 基本命令
+
+```shell
+1. 增加一个活多个元素，自动去重
+sadd key number1 number2
+2. 查看集合元素
+smembers key
+3. 删除一个或多个元素，元素不存在自动忽略
+srem key member1 member2
+4. 元素是否存在
+sismember key member
+5. 随机返回集合中指定个数的元素，默认为1个
+srandmember key [count]
+6. 弹出成员
+spop key [count]
+7. 返回集合中元素的个数，不会遍历整个集合，只是存储在键当中了
+scard key
+8. 把元素从源集合移动到目标集合
+smove source destination member
+9. 差集(number1 1 2 3 number2 1 2 4 结果为3) 不同元素
+sdiff key1 key2
+10. 差集保存到另一个集合中
+sdiffstore destination key1 key2
+11. 交集 相同元素
+sinter key1 key2
+sinterstore destination key1 key2
+12. 并集
+sunionstore destination key1 key2
+```
+
+# 有序集合
+
+## 特点
+
+1. 有序、去重
+2. 元素是字符串类型
+3. 每个元素都关联着一个浮点数分值(score),并按照分值从小到大的顺序排列集合中的元素(分值可以相同)
+4. 最多包含2^32-1个元素
+
+## 有序集合常用命令
+
+```shell
+1. 在有序集合中添加一个成员
+zadd key score member
+2. 查看指定区间元素（升序）
+zrange key start stop [withscores]
+3. 查看指定区间元素（降序）
+zrevrange key start stop [withscores]
+4. 查看指定元素分值
+zacore key member
+5. 返回指定区间元素
+#offset 跳过多少个元素
+# count 返回几个
+# 小括号开区间
+zrangebyscore key min max [withscores] [limit offset count]
+
+#每页显示10个成员，显示第5页的成员信息
+limit 40 10
+# 显示第3 4 5条记录
+limit 2 3
+
+6. 删除成员
+zrem key member
+7. 增加或减少分值
+zincrby key increment member
+8. 返回元素排名
+zrank key member
+9. 返回元素逆序排名
+zrevrank key member
+10. 删除指定区间内的元素
+zremrangebyscore key min max
+11 返回集合中元素个数
+zcard key
+12. 返回指定范围中元素个数
+zcount key min max
+zcount salary 6000 8000
+zcount salary (6000 8000 #6000 <salary<=8000
+zcount salary (6000 (8000 # 6000<salary<8000
+13. 并集
+zunionstore destination numkeys key [weights权重值] [aggregate sum|min|max]
+zunionstore salary3 2 salary salary2 weights 1 0.5 aggregate max
+#2代表集合数量，weights之后 权重1 给salary 权重0.5给salary2 算完权重之后再执行聚合aggregate
+14 交集,和并集相似，只取相同的元素
+zinterstore destination numkeys key1 key2 weights weight aggregate sum(默认)|min|max
+```
+
+# 总结
+
+## 五大数据类型及应用场景
+
+| 类型         | 特点                                           | 使用场景                                                      |
+|------------|----------------------------------------------|-----------------------------------------------------------|
+| string     | 简单key-value类型，<br/>value可为字符串和数字             | 常规计数（微博数，粉丝数等功能）                                          |
+| hash       | string类型的field和value的映射表，<br/>hash特别适合用于存储对象 | 存储部分肯呢个需要变更的数据（比如用户信息）                                    |
+| list       | 有序可重复列表                                      | 关注列表、粉丝列表、消息队列等                                           |
+| set        | 无序不可重复列表                                     | 存储并计算关系（如微博、关注人或粉丝存放在集合，<br/>可通过交集、并集差集等操作实现共同关注、共同喜好等功能） |
+| sorted set | 每个元素带有分值的集合                                  | 各种排行榜                                                     |
+
