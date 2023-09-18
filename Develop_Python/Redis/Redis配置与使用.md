@@ -69,7 +69,7 @@ redis-cli --raw
 requirepass 密码
 
 #配置远程连接
-1. bind 127.0.0.1 改为 bind 0.0.0.0
+1. bind 127.0.0.1 改为 bind 0.0.0.0 或者直接注释掉
 2. 关闭保护模式，即 protected-mode no
 3. 允许后台运行，即 daemonize yes
 
@@ -93,10 +93,38 @@ config get maxclients
 
 # 设置客户端最大连接数,在服务启动时设置
 redis-server --maxclients 100000
+
+#rdb持久化-默认配置
+dbfilename 'dump.rdb'
+dir /var/lib/redis
+
+rdb持久化-自动触发（条件）
+save 900 1
+save 300 10
+save 60 10000   #时间+修改次数
+
+#aof持久化-自动触发（条件）
+appendonly yes
+appendfilename 'appendonly.aof'
+#aof持久化策略
+appendfsync always
+appendfsync everysec #默认
+appendfsync no 
+#aof重写触发
+auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb
+
+#设置为从服务器
+salveof <master-ip> <master-port>
 ```
 
-
-
+# Redis相关文件存放路径(Ubuntu)
+1. 配置文件： /etc/redis/redis.conf
+2. 备份文件： /var/lib/redis/*.rdb|*.aof
+3. 日志文件： /var/log/redis/redis-server.log
+4. 启动文件： /etc/init.d/redis-server
+/etc/下存放配置文件
+/etc/init.d/下存放服务启动文件
 
 
 
