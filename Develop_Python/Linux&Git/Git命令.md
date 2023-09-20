@@ -89,7 +89,6 @@ git restore --source=HEAD --staged --worktree readme.txt
 git status
 #提交项目到本地仓库
 git commit -m "备注信息"
-git diff file
 # 回退到上一个版本
 git reset --hard HEAD^
 # 回退到上100个版本
