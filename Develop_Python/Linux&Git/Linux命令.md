@@ -235,7 +235,8 @@ cat access.log | awk '{print $1}' | sort | uniq
 
 # nginx 的访问日志 输出ip 统计多少个ip访问过我
 cat access.log | awk '{print $1}' | sort | uniq | wc -l
-# 统计每个ip的访问次数，输出前10个访问量最大的用户IP
+# 统计每个ip的访问次数，输出3
+# 前10个访问量最大的用户IP
 cat access.log | awk '{print $1}' | sort | uniq -c | sort -rnk 1 | head -10
 ```
 **grep命令之正则表达式**  
@@ -673,4 +674,50 @@ do
         pass=$pass${key:$index:1}
 done
 echo $pass
+```
+**随机密码生成-python**
+```python
+import string
+import random
+
+key = string.ascii_letters + string.digits + '_'
+passwd = ''
+
+for i in range(8):
+    one = random.choice(key)
+    passwd += one
+print(passwd)
+```
+
+**Shell函数**
+```shell
+#1. 语法格式
+函数名(){
+  
+}
+#2. 调用
+函数名
+
+#示例，使用函数进行算术的加减运算
+#!/bin/bash
+sumn(){
+        echo $[n1 + n2]
+}
+subn(){
+        echo $[n1 - n2]
+}
+read -p "First:" n1
+read -p "Second:" n2
+read -p "Operation(+|-):" op
+case $op in
+"+")
+        sumn
+        ;;
+"-")
+        subn
+        ;;
+*)
+        echo "Invalid"
+        ;;
+esac
 ```
