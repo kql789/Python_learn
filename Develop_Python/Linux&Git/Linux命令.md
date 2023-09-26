@@ -169,7 +169,7 @@ sort filename
 uniq -c
 sort filename | uniq -c
 ```
-# 五、raid raid1 raid5的区别
+# 五、raid0 raid1 raid5的区别
 什么时候开始设置的？是在做虚拟化的之前。
 ## 什么是raid？
 由一系列硬盘组成的阵列，简单说，一个服务器有10个—硬盘，你如何能保证坏掉一个硬盘后数据不丢，业务不断。
