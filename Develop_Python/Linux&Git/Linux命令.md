@@ -225,7 +225,7 @@ awk 选项 '动作' 文件列表
 linux命令 | awk 选项 '动作'
 
 # 示例，提取分区的使用量
-df -h | head -4 | tail -1 | awk 'print{ $5}' | awk -F '%' '{print $1}'
+df -h | head -4 | tail -1 | awk '{print $5}' | awk -F '%' '{print $1}'
 
 # 输出本机IP
 ifconfig | head -2 | tail -1 | awk '{print $2}'
@@ -240,7 +240,7 @@ cat access.log | awk '{print $1}' | sort | uniq | wc -l
 cat access.log | awk '{print $1}' | sort | uniq -c | sort -rnk 1 | head -10
 ```
 **grep命令之正则表达式**  
-v
+
 ```shell
 # 正则表达式元字符集 ——使用grep命令
 ^ 以....开头
