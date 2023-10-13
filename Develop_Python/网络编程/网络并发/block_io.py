@@ -7,7 +7,7 @@ from socket import *
 from time import ctime, sleep
 
 # 打开日志文件
-f = open('./photo/log.txt', 'a+')
+f = open('photo/log.txt', 'a+')
 
 # tcp套接字
 sockfd = socket()

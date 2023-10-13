@@ -161,12 +161,12 @@ pid = os.fork()
 
 ## 流程特点
 
-![fork](./photo/fork.jpg)
+![fork](photo/fork.jpg)
 
 ## 基本接口使用
 
-![for](./photo/fork2.jpg)
-![f](./photo/fork3.jpg)
+![for](photo/fork2.jpg)
+![f](photo/fork3.jpg)
 
 注意：
 

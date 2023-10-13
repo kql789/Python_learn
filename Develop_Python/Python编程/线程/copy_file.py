@@ -7,7 +7,7 @@
 from multiprocessing import Process
 import os
 
-filename = "./photo/io操作.jpg"
+filename = "photo/io操作.jpg"
 
 size = os.path.getsize(filename)
 
@@ -18,7 +18,7 @@ size = os.path.getsize(filename)
 # 复制上半部分
 def top():
     fr = open(filename, 'rb')
-    fw = open('./photo/top.jpg', 'wb')
+    fw = open('photo/top.jpg', 'wb')
     n = size // 2
     fw.write(fr.read(n))
     fr.close()
@@ -28,7 +28,7 @@ def top():
 # 复制下半部分
 def bot():
     fr = open(filename, 'rb')
-    fw = open('./photo/bot.jpg', 'wb')
+    fw = open('photo/bot.jpg', 'wb')
     fr.seek(size // 2, 0)  # 文件偏移量，以0字节位置为参考，偏移至一半的位置
     fw.write(fr.read())
     fr.close()

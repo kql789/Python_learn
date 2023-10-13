@@ -44,7 +44,7 @@ IO分类：阻塞IO，非阻塞IO，IO多路复用，异步IO等。
 
 **代码实现 select_server.py**
 
-![select](./photo/select.png)
+![select](photo/select.png)
 
 注意：
 
@@ -64,7 +64,7 @@ IO分类：阻塞IO，非阻塞IO，IO多路复用，异步IO等。
          <<:左移运算，将二进制位整体向左移动若干位，右边空出的位用0填充。
          >>:右移运算，将二进制位整体向右移动若干位，左边空出的位用0填充。  
 
-![位运算](./photo/weiyunsuan.png)
+![位运算](photo/weiyunsuan.png)
 
 ### poll方法
 
