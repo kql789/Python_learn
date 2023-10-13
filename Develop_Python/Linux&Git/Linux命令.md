@@ -225,7 +225,7 @@ awk 选项 '动作' 文件列表
 linux命令 | awk 选项 '动作'
 
 # 示例，提取分区的使用量
-df -h | head -4 | tail -1 | awk 'print{ $5}' | swk -F '%' '{print $1}'
+df -h | head -4 | tail -1 | awk '{print $5}' | awk -F '%' '{print $1}'
 
 # 输出本机IP
 ifconfig | head -2 | tail -1 | awk '{print $2}'
@@ -256,13 +256,13 @@ $ 以....结尾
 [A-Z] 所有大写字母
 [a-Z] 所有字母
 [0-9] 所有数字
-[a-Z0-9所有字母和数字]
+[a-Z0-9] 所有字母和数字
 
 #Mac地址正则匹配
 #06:da:6e:79:fa:91 
 ([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}
 
-# 找出mac地址的匹配表达式
+# 找出mac地址的匹配所有字母和数字表达式
 ifconfig | egrep "([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}" | awk '{print $2}' 
 ```
 # 八、常见服务端口
