@@ -1,6 +1,6 @@
 # @Author : Kql
 # @Time : 2023/8/24 16:47
-# @FileName : os_environ_test.py
+# @FileName : os_配置环境变量.py
 # @Blog ：https://blog.csdn.net/weixin_56175042
 import os
 
