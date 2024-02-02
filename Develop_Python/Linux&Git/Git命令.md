@@ -112,6 +112,25 @@ git tag
 git show tag_name 
 #删除标签
 git tag -d tag_name 
+
+# 把标签推送到远程
+git push origin <tagname>
+
+# 推送所有的标签到远程
+git push origin --tags
+# 注意:标签总是和某个commit挂钩。如果这个commit 既出现在master分支，又出现在dev分之上，那么在这两个分支上都可以看到这个标签。
+
+#删除远程标签
+#1. 先删除本地标签v1.0.0
+git tag -d v1.0.0
+#2.推送删除的标签到远程
+git push origin :v1.0.0
+
+# 避免错误删除标签
+#1. 列出本地标签
+git tag -l | grep v1.0.0
+#2.结合git show 命令来验证标签名和SHA-1值
+git show-ref --tags | grep v1.0.0
 ```
 
 # 六、工作区管理
