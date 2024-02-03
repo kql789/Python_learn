@@ -93,7 +93,7 @@ ThreadPool(9).imap_unordered(url,urls)
 
 ```
 
-## 5. 进度条下载
+## 6. 进度条下载
 
 clint模块中的一个ui组件中有进度条。
 ```Shell
@@ -115,5 +115,103 @@ with open("/Users/user/Desktop/data/phopt3.jpg",'wb') as f:
             f.write(ch)
 ```
 
-## 6.urllib下载
+## 7.urllib下载
 
+**在python中urllb是一个内置的模块，用于处理URLs(统一资源定位符)，包括打开、读取、解析和操作URLs。**
+- urllib.request：用于打开和读取URLs，支持HTTP、HTTPS和FTP协议。
+- urllib.parse：用于解析URLs，包括拆分URLs、构建URLs和编码/解码URL参数。
+- urllib.error：定义了urllib模块可能引发的异常，例如HTTPError、URLError等。
+- urllib.robotparser：用于解析robots.txt文件，以便程序可以遵守网站的爬取规则。
+
+```python
+import urllib.request
+
+url = 'https://www.baidu.com/index.htm'
+
+#使用urllib下载一个网页
+urllib.request.urlretrieve(url, '/Users/user/Desktop/data/python.html')
+print("下载完成!")
+```
+
+## 8. 代理下载
+```python
+import urllib.request
+
+url = 'https://www.baidu.com/index.htm'
+
+my_proxy = urllib.request.ProxyHandler({'http': 'http://127.0.0.1:1080'})
+openproxy = urllib.request.build_opener(my_proxy)
+reponse = openproxy.open(url)
+print(reponse.read().decode('utf-8'))
+
+```
+
+## 9. urllib3下载
+urllib3是是urllib模块的改进版本，它提供了一个高级的HTTP库，可以用来替代urllib。urllib3具有以下优点：
+- 支持连接池，可以重用已经建立的连接，提高性能。
+- 支持自动处理重定向，避免手动处理。    
+- 支持连接超时和读取超时，可以避免由于网络问题导致的下载失败。
+- 支持SSL证书验证，可以避免由于证书问题导致的下载失败。
+
+
+```python
+
+import urllib3
+import shutil
+
+# 创建一个连接池管理器，可以维持多个连接
+http = urllib3.PoolManager()
+
+# 设置代理
+proxy_url = 'http://127.0.0.1:1080'
+http = urllib3.ProxyManager(proxy_url)
+
+# 下载文件
+url = 'https://example.com/file.zip'
+
+local_file = '/path/to/save/file.zip'
+reponse = http.request('GET', url)
+
+with open(local_file, 'wb') as f:
+    # 将文件对象内容复制到另一个文件对象中
+    shutil.copyfileobj(reponse, f)
+
+# 关闭连接
+http.clear()
+```
+## 10. 使用asyncio下载
+asyncio模块主要用于处理系统事件。它围绕一个事件循环进行工作，该事件循环会等待事件发生，然后对该事件作出反应。这个反应可以是调用另一个函数。这个过程称为事件处理。asyncio模块使用协同程序进行事件处理。
+
+```python
+
+import asyncio
+import aiohttp
+
+async def download_file(url,file_name):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            if response.status == 200:
+                with open(file_name, 'wb') as file:
+                    while True:
+                        chunk = await response.content.read(1024)
+                        if not chunk:
+                            break
+                        file.write(chunk)
+                        print(f"Downloaded {file_name} from {url}")
+            else:
+                print(f"Failed to download {url}")
+
+async def main():
+    tasks = [
+        download_file('https://www.example.com/file1', 'file1.dat'),
+        download_file('https://www.example.com/file2', 'file2.dat'),
+    ]
+    await asyncio.gather(*tasks)
+
+if __name__ == '__main__':
+    asyncio.run(main())
+```
+
+在上面的示例中，我们定义了一个名为 download_file 的异步函数，用于下载单个文件。然后，我们定义了一个主函数 main，该函数创建了多个下载任务，然后使用 asyncio.gather 来并行运行这些任务。
+当运行这段代码时，它将使用 asyncio 来异步下载文件，并且能够同时下载多个文件而无需阻塞。这使得你能够更有效地利用网络和系统资源来完成文件下载任务。
+在实际的应用中，你可能需要根据自己的需求进行一些调整和优化，比如添加错误处理、限制并发下载的数量等等。
