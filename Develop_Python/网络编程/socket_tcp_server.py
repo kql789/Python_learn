@@ -1,34 +1,26 @@
-# 多线程通信
-from multiprocessing import Process
+import socket
 
+# 创建套接字对象
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# 写一个冒泡排序的函数
+# 绑定IP地址和端口
+server_socket.bind(('127.0.0.1', 8888))
 
+# 开始监听连接
+server_socket.listen(5)
 
-def bubble_sort(lst):
-    # 循环执行比较操作
-    for i in range(len(lst)):
-        # 循环执行比较操作
-        for j in range(len(lst) - 1 - i):
-            # 如果当前元素大于前一个元素
-            if lst[j] > lst[j + 1]:
-                # 将当前元素替换为前一个元素
-                lst[j], lst[j + 1] = lst[j + 1], lst[j]
+print("Server is listening on port 8888...")
 
+# 接受客户端连接
+client_socket, client_address = server_socket.accept()
+print(f"Connection from {client_address}")
 
-# 生成一个插入排序函数
-def insert_sort(lst):
-    # 循环执行比较操作
-    for i in range(1, len(lst)):
-        # 循环执行比较操作
-        for j in range(i, 0, -1):
-            # 如果当前元素小于前一个元素
-            if lst[j] < lst[j - 1]:
-                # 将当前元素替换为前一个元素
-                lst[j], lst[j - 1] = lst[j - 1], lst[j]
+# 接收客户端数据并发送响应
+client_data = client_socket.recv(1024)
+print(f"Received: {client_data.decode()}")
 
+client_socket.send(b"Hello, client!")
 
-lits_i = [1, 7, 3, 9, 2, 6]
-# 将lits_i排序
-insert_sort(lits_i)
-print(lits_i)
+# 关闭连接
+client_socket.close()
+server_socket.close()
